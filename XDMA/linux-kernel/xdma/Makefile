@@ -32,13 +32,12 @@ else
 	BUILDSYSTEM_DIR:=/lib/modules/$(shell uname -r)/build
 	PWD:=$(shell pwd)
 all :
-	$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) modules
-
-clean:
-	$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) clean
-	@/bin/rm -f *.ko modules.order *.mod.c *.o *.o.ur-safe .*.o.cmd
+$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) modules
 
 install: all
-	$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) modules_install
+$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) modules_install
+depmod -a
+clean:
+$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) clean
 
 endif
